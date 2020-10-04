@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# bac - Basic Avalanche CLI
+# Copyright (C) 2020 Jean Zundel <jzu@free.fr>
+#
+# -f formats the output using jq.
+# Arguments are key:value pairs (quotes unnecessary).
+# Endpoint is inferred from the service part of the method.
+#
+# Example: 
+# bac -f avm.getBalance address:X-avax1tmnpf87ph0pap4p507zfr0zesafnj5qh0sdkjc assetID:AVAX
+#
+# bash -x bac ... will show the full curl command.
+#
+# Providing an incomplete method name (i.e. without . or _) has it grepped 
+# in [/usr/local/etc/]bac.sigs and matching method signatures are displayed.
+# 
+# To install it in /usr/local:
+# install -m 755 bac /usr/local/bin
+# install -m 644 bac.sigs /usr/local/etc
+#
+# All services are (supposed to be) supported, except
+# - the C-chain (non-standard method names)
+# - methods needing complex data structures, e.g. avm.createNFTAsset
+# - when passwords contain ":"
+# ...for now.
+
+export LANG=C
+export LC_ALL=C
+
+if [ $# -eq 0 ] 
+then
+  echo Usage: $0 '[-f] service.method [key:value ...]' 1>&2
+  exit 1
+fi
+
+FORMAT="cat"
+if [ $1 = "-f" ]
+then
+  if which jq >/dev/null
+  then
+    FORMAT="jq . -"
+  else
+    echo 'Please install the jq package' 1>&2
+  fi
+  shift
+fi
+
+[ -f /usr/local/etc/bac.sigs ] && \
+  SIGS=/usr/local/etc/bac.sigs
+
+[ -f bac.sigs ] && \
+  SIGS=bac.sigs
+
+if ! echo $* | egrep -q '\.|_'
+then
+  [ -z "$SIGS" ] && \
+    exit 1
+  grep -i "$1" "$SIGS"
+  exit
+fi
+
+METHOD=$1
+ENDPOINT=`echo $METHOD \
+          | sed -e 's/\..*//' \
+                -e 's:avm:bc/X:' \
+                -e 's:platform:bc/P:' \
+                -e 's:timestamp:bc/timestamp:'`
+shift
+
+if echo $* | grep -q : 
+then
+  PARAMS=`echo $* \
+          | sed -e 's/:/":"/g' \
+                -e 's/^/,"params":{"/' \
+                -e 's/$/"}/' \
+                -e 's/ /","/g'`
+fi
+
+curl -X POST \
+     --data '{
+       "jsonrpc":"2.0",
+       "id"     :1,
+       "method" :"'$METHOD'" '$PARAMS'
+     }' \
+     -H 'content-type:application/json;' 2>/dev/null \
+     127.0.0.1:9650/ext/$ENDPOINT \
+| $FORMAT
