@@ -17,7 +17,7 @@ Endpoint is inferred from the service part of the method.
 Providing an incomplete method name (i.e. without . or &lowbar;) has it grepped 
 in `[/usr/local/etc/]bac.sigs` and matching method signatures are displayed.
 <br>
-These have been extracted and processed from the [Avalanche Documentation](https://docs.avax.network/v1.0/en/api/intro-apis/).
+These have been extracted and processed from the Avalanche Documentation.
 There must be a better way to do it in order to keep up with changes.
 
 ## Installation
@@ -27,6 +27,8 @@ The script works in any directory by calling `./bac …` , but you can install i
     sudo install -m 755 bac /usr/local/bin
     sudo install -m 644 bac.sigs /usr/local/etc
 
+There are no prerequisites if you only need raw outputs. The `-f` (format) option wants `jq`, which you can install using `apt install jq`.
+
 ## Limitations
 
 All services are (supposed to be) supported, except
@@ -35,5 +37,5 @@ All services are (supposed to be) supported, except
 - methods needing complex data structures, e.g. `avm.createNFTAsset`
 - when passwords contain ":"
 
-… for now.
+… for now. Currently trying to overcome these issues.
 
