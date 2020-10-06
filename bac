@@ -2,19 +2,8 @@
 
 # bac - Basic Avalanche CLI
 # Copyright (C) 2020 Jean Zundel <jzu@free.fr>
+# Bash wrapper around the Avalanche JSON API
 #
-# -f formats the output using jq.
-# Arguments are key:value pairs (quotes unnecessary).
-# Endpoint is inferred from the service part of the method.
-#
-# Example: 
-# bac -f avm.getBalance address:X-avax1tmnpf87ph0pap4p507zfr0zesafnj5qh0sdkjc assetID:AVAX
-#
-# bash -x bac ... will show the full curl command.
-#
-# Providing an incomplete method name (i.e. without . or _) has it grepped 
-# in [/usr/local/etc/]bac.sigs and matching method signatures are displayed.
-# 
 # To install it in /usr/local:
 # install -m 755 bac /usr/local/bin
 # install -m 644 bac.sigs /usr/local/etc
@@ -30,8 +19,29 @@ export LC_ALL=C
 
 if [ $# -eq 0 ] 
 then
-  echo Usage: $0 '[-f] service.method [key:value ...]' 1>&2
+  echo "Usage: bac [-f] service.method [key:value ...]"
+  echo "       bac [-h]"
   exit 1
+fi
+
+if [ $1 = -h ]
+then
+  echo 'bac - Basic Avalanche CLI'
+  echo
+  echo "Usage: bac [-f] service.method [key:value ...]"
+  echo
+  echo '-f formats the output using jq.'
+  echo 'Arguments are key:value pairs (quotes unnecessary).'
+  echo 'Endpoint is inferred from the service part of the method.'
+  echo
+  echo 'Example: '
+  echo 'bac -f avm.getBalance address:X-avax1tmnpf87ph0pap4p507zfr0zesafnj5qh0sdkjc assetID:AVAX'
+  echo
+  echo 'bash -x bac ... will show the full curl command.'
+  echo
+  echo 'Providing an incomplete method name (i.e. without . or _) has it grepped'
+  echo 'in [/usr/local/etc/]bac.sigs and matching method signatures are displayed.'
+  exit
 fi
 
 FORMAT="cat"
@@ -65,6 +75,7 @@ ENDPOINT=`echo $METHOD \
           | sed -e 's/\..*//' \
                 -e 's:avm:bc/X:' \
                 -e 's:platform:bc/P:' \
+                -e 's:[^/]*_.*:bc/C/rpc:' \
                 -e 's:timestamp:bc/timestamp:'`
 shift
 

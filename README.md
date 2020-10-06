@@ -33,7 +33,7 @@ There are no prerequisites if you only need raw outputs. The `-f` (format) optio
 
 All services are (supposed to be) supported, except
 
-- the C-chain (non-standard method names)
+- the C-chain (not fully tested, some methods do work)
 - methods needing complex data structures, e.g. `avm.createNFTAsset`
 - when passwords contain ":"
 
