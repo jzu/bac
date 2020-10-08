@@ -2,17 +2,9 @@
 
 # bac - Basic Avalanche CLI
 # Copyright (C) 2020 Jean Zundel <jzu@free.fr>
+# See https://github.com/jzu/bac
+#
 # Bash wrapper around the Avalanche JSON API
-#
-# To install it in /usr/local:
-# install -m 755 bac /usr/local/bin
-# install -m 644 bac.sigs /usr/local/etc
-#
-# All services are (supposed to be) supported, except
-# - the C-chain (non-standard method names)
-# - methods needing complex data structures, e.g. avm.createNFTAsset
-# - when passwords contain ":"
-# ...for now.
 
 export LANG=C
 export LC_ALL=C

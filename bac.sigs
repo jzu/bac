@@ -1,71 +1,94 @@
-admin.alias : endpoint, alias
+admin.alias : alias, endpoint 
 admin.aliasChain : chain, alias 
-admin.lockProfile
-admin.startCPUProfiler
-admin.stopCPUProfiler
-auth.newToken : password, endpoints []
-auth.revokeToken : password, token 
-auth.changePassword : oldPassword, newPassword 
-avm.buildGenesis : genesisDataJSON
-avm.createAddress : username, password 
-avm.createFixedCapAsset : name, symbol, denomination, initialHolders []{ address, amount}, from [], (opt) changeAddr, (opt) username, password 
-avm.mint : amount, assetID, to, from [], (opt) changeAddr, (opt) username, password 
-avm.createVariableCapAsset : name, symbol, denomination, minterSets []{ minters [], threshold}, from [], (opt) changeAddr, (opt) username, password 
-avm.createNFTAsset : name, symbol, minterSets []{ minters [], threshold}, from [], (opt) changeAddr, (opt) username, password }
-avm.mintNFT : assetID, payload, to, from [], (opt) changeAddr, (opt) username, password 
-avm.exportAVAX : to, amount, from [], (opt) changeAddr, (opt) username, password, 
-avm.exportKey : username, password, address 
+admin.lockProfile 
+admin.memoryProfile 
+admin.startCPUProfiler 
+admin.stopCPUProfiler 
+auth.newToken : password, endpoints[] 
+auth.revokeToken : password goes here, token goes here 
+auth.changePassword : oldPassword password goes here, newPassword 
+avm.buildGenesis : genesisData asset1 name, symbol, initialState fixedCap [{amount, address}, {amount, address}, {amount, address}, {amount, address}] , asset2 name, symbol, initialState variableCap [{minters[], threshold}, {minters[], threshold}]  
+avm.createAddress : username, password
+avm.createFixedCapAsset : name Token, symbol, initialHolders[{address, amount}], from[], changeAddr, username, password
+avm.createNFTAsset : name, symbol, minterSets[{minters[], threshold}, {minters[], threshold}], from[], changeAddr, username, password
+avm.createVariableCapAsset : name, symbol, minterSets[{minters[], threshold}], from[], changeAddr, username, password
+avm.exportAVAX : from[], to, amount, destinationChain, changeAddr, username, password
+avm.exportKey : username, password, address
 avm.getAllBalances : address
 avm.getAssetDescription : assetID 
 avm.getBalance : address, assetID 
 avm.getTx : txID 
 avm.getTxStatus : txID 
-avm.getUTXOs : addresses, limit, (opt) startIndex { (opt) address, utxo }, sourceChain (opt) },
-avm.importAVAX : to, sourceChain, username, password, 
-avm.importKey : username, password, privateKey 
+avm.getUTXOs : addresses[], limit 
+avm.importAVAX : username, password, sourceChain, to
+avm.importKey : username, password, privateKey
 avm.issueTx : tx 
-avm.listAddresses : username, password 
-avm.Send : amount, assetID, to, from [], (opt) changeAddr, (opt) memo, (opt) username, password 
-avm.sendNFT : assetID, groupID, to, from [], (opt) changeAddr, (opt) username, password 
+avm.listAddresses : username, password
+avm.mint : amount, assetID, from[], to, minters[], changeAddr, username, password
+avm.mintNFT : assetID, payload, from[], to, minters[], changeAddr, username, password
+avm.send : assetID , amount , from [], to , changeAddr, memo , username, password
+avm.sendMultiple : outputs[{assetID , to , amount}], from [], changeAddr, memo , username, password
+avm.sendNFT : assetID , from [], to , groupID , changeAddr, username, password
+eth_blockNumber : []
+eth_call : [{to, data}, latest]
+eth_chainId : []
+eth_getBalance : []
+eth_signTransaction : [{from, to, gas, gasPrice, nonce, value}]
+eth_getTransactionCount : []
+eth_sendRawTransaction : []
+eth_getBlockByHash : []
+eth_getBlockByNumber : []
+eth_getTransactionByHash : []
+eth_getTransactionReceipt : []
+net_version : []
+personal_newAccount : []
+personal_importRawKey : []
+personal_listAccounts : []
+personal_unlockAccount : []
+txpool_status : []
+web3_clientVersion : []
+web3_sha3 : []
 health.getLiveness
-info.getBlockchainID : alias
-info.getNetworkID
-info.getNetworkName
-info.getNodeID
-info.getNodeVersion
-info.isBootstrapped : chain
-info.peers
-info.getTxFee
-ipcs.publishBlockchain : blockchainID 
-ipcs.unpublishBlockchain : blockchainID 
-keystore.createUser : username, password 
-keystore.ListUsers
-platform.addDelegator : nodeID, startTime, endTime, stakeAmount, rewardAddress, from [], (opt) changeAddr, (opt) username, password 
-platform.addValidator : nodeID, startTime, endTime, stakeAmount, rewardAddress, from [], (opt) changeAddr, (opt) delegationFeeRate float, username, password 
-platform.addSubnetValidator : nodeID, subnetID, startTime, endTime, weight, from [], (opt) changeAddr, (opt) username, password 
-platform.createAddress : username, password 
-platform.createBlockchain : subnetID, vmID, name, genesisData, from [], (opt) changeAddr, (opt) username, password 
-platform.createSubnet : controlKeys [], threshold, from [], (opt) changeAddr, (opt) username, password 
-platform.exportAVAX : amount, from [], (opt) to, changeAddr, (opt) username, password 
-platform.exportKey : username, password, address 
-platform.getBalance : address 
-platform.getBlockchains
-platform.getBlockchainStatus : blockchainID 
-platform.getCurrentValidators : subnetID 
-platform.getHeight
-platform.getMinStake
-platform.getPendingValidators : subnetID 
-platform.getStakingAssetID
-platform.getSubnets : ids []string
-platform.getStake : addresses []string
+info.getBlockchainID : alias 
+info.getNetworkID 
+info.getNetworkName 
+info.getNodeID 
+info.getNodeVersion 
+info.isBootstrapped : chain 
+info.getTxFee 
+info.peers 
+ipcs.publishBlockchain : blockchainID
+ipcs.unpublishBlockchain : blockchainID
+keystore.createUser : username, password
+keystore.deleteUser : username, password
+keystore.exportUser : username, password
+keystore.importUser : username, password, user 
+keystore.listUsers
+platform.addDelegator : nodeId, startTime, endTime, stakeAmount, rewardAddress, username, password
+platform.addValidator : nodeID, startTime, endTime, stakeAmount, rewardAddress, delegationFeeRate, username, password
+platform.addSubnetValidator : nodeID, subnetID, startTime, endTime, weight, username, password
+platform.createAddress : username, password
+platform.createBlockchain : vmID, SubnetID, name, genesisData, username, password
+platform.createSubnet : controlKeys[], threshold, username, password
+platform.getBalance : address
+platform.getBlockchains 
+platform.getBlockchainStatus : blockchainID
+platform.getCurrentValidators : subnetID
+platform.getStakingAssetID 
+platform.getMinStake 
+platform.getStake : addresses[] 
+platform.getTxStatus : txID
+platform.getPendingValidators : subnetID
+platform.getSubnets 
 platform.getTx : txID 
 platform.getTxStatus : txID 
-platform.getUTXOs : addresses, limit, (opt) startIndex { (opt) address, utxo }, sourceChain (opt) },
-platform.importAVAX : from [], (opt) to, changeAddr, (opt) sourceChain, username, password 
-platform.importKey : username, password, privateKey 
-platform.listAddresses : username, password 
-platform.sampleValidators : size, subnetID 
-platform.validatedBy : blockchainID 
-platform.validates : subnetID 
-timestamp.getBlock : id 
-timestamp.proposeBlock : data 
+platform.getUTXOs : addresses[], sourceChain, limit 
+platform.exportAVAX : to, amount, username, password
+platform.exportKey : username, password, address
+platform.importAVAX : username, password, sourceChain, to
+platform.importKey : username, password, privateKey
+platform.issueTx : tx
+platform.listAddresses : username, password
+platform.sampleValidators : size 
+platform.validatedBy : blockchainID
+platform.validates : subnetID

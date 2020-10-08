@@ -17,8 +17,12 @@ Endpoint is inferred from the service part of the method.
 Providing an incomplete method name (i.e. without . or &lowbar;) has it grepped 
 in `[/usr/local/etc/]bac.sigs` and matching method signatures are displayed.
 <br>
-These have been extracted and processed from the Avalanche Documentation.
-There must be a better way to do it in order to keep up with changes.
+These have been extracted and processed from the 
+[Avalanche Postman Collection](https://github.com/ava-labs/avalanche-postman-collection).
+This is a secondary source but there's nowhere in the avalanchego repo 
+where you can find prototypes for these methods, so signatures may differ from 
+the documentation - that's life. Oh and it needs Perl. Sorry. Anyway the generated file
+is included here.
 
 ## Installation
 
