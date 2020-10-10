@@ -11,7 +11,7 @@ export LC_ALL=C
 
 if [ $# -eq 0 ] 
 then
-  echo "Usage: bac [-f] service.method [key:value ...]"
+  echo "Usage: bac [-f] [-n] service.method [key:value ...]"
   echo "       bac [-h]"
   exit 1
 fi
@@ -20,21 +20,25 @@ if [ $1 = -h ]
 then
   echo 'bac - Basic Avalanche CLI'
   echo
-  echo "Usage: bac [-f] service.method [key:value ...]"
+  echo "Usage: bac [-h] [-f] service.method [key:value ...]"
   echo
   echo '-f formats the output using jq.'
+  echo '-n does nothing but display the Curl command.'
   echo 'Arguments are key:value pairs (quotes unnecessary).'
+  echo 'An object is surrounded by the % sign (instead of {...}).'
+  echo 'BACPWD instead of password:... looks up the password in ~/.bacpwd'
   echo 'Endpoint is inferred from the service part of the method.'
   echo
   echo 'Example: '
   echo 'bac -f avm.getBalance address:X-avax1tmnpf87ph0pap4p507zfr0zesafnj5qh0sdkjc assetID:AVAX'
   echo
-  echo 'bash -x bac ... will show the full curl command.'
-  echo
   echo 'Providing an incomplete method name (i.e. without . or _) has it grepped'
   echo 'in [/usr/local/etc/]bac.sigs and matching method signatures are displayed.'
-  exit
+  echo
+  exit 0
 fi
+
+# Formatting
 
 FORMAT="cat"
 if [ $1 = "-f" ]
@@ -43,10 +47,20 @@ then
   then
     FORMAT="jq . -"
   else
-    echo 'Please install the jq package' 1>&2
+    echo 'Please install the jq package (apt install jq)' 1>&2
+    shift
   fi
+fi
+
+# Do nothing?
+
+if [ $1 = "-n" ]
+then
+  ECHO="echo "
   shift
 fi
+
+# Looking for signatures
 
 [ -f /usr/local/etc/bac.sigs ] && \
   SIGS=/usr/local/etc/bac.sigs
@@ -57,10 +71,12 @@ fi
 if ! echo $* | egrep -q '\.|_'
 then
   [ -z "$SIGS" ] && \
-    exit 1
+    exit 2
   grep -i "$1" "$SIGS"
-  exit
+  exit 0
 fi
+
+# Endpoint
 
 METHOD=$1
 ENDPOINT=`echo $METHOD \
@@ -71,21 +87,66 @@ ENDPOINT=`echo $METHOD \
                 -e 's:timestamp:bc/timestamp:'`
 shift
 
+# Params
+
 if echo $* | grep -q : 
 then
   PARAMS=`echo $* \
           | sed -e 's/:/":"/g' \
                 -e 's/^/,"params":{"/' \
                 -e 's/$/"}/' \
-                -e 's/ /","/g'`
+                -e 's/ /","/g' \
+                -e 's/:"%/:{"/g' \
+                -e 's/%"/"}/g' \
+                -e 's/%"/"}/g'`
 fi
 
-curl -X POST \
+# Password handling
+
+if echo $* | grep -q BACPWD 
+then
+  if [ -f ~/.bacpwd ] 
+  then
+    if [ `stat -c %a%U ~/.bacpwd` = 400$USER ]
+    then
+      USERNAME=`echo "$PARAMS" \
+                | sed -e 's/.*username":"//' \
+                      -e 's/".*//'`
+      if [ -z "$USERNAME" ] 
+      then
+        echo No username provided
+        exit 3
+      fi
+      PASSWORD=`grep -w $USERNAME ~/.bacpwd \
+                | sed -e 's/^ *\(.*\) *$/\1/' \
+                      -e 's/.*  *//'`
+      if [ -z "$PASSWORD" ]
+      then
+        echo No password for $USERNAME in ~/.bacpwd
+        exit 4
+      fi
+      PARAMS=`echo "$PARAMS" \
+              | sed "s/BACPWD/password\":\"$PASSWORD/"`
+    else
+      echo "~/.bacpwd should belong to $USER with permissions set to 400"
+      exit 5
+    fi
+  else
+    echo No ~/.bacpwd file for BACPWD
+    exit 6
+  fi
+fi
+
+# Faster, Pussycat! Kill! Kill!
+
+
+${ECHO}curl -X POST \
      --data '{
        "jsonrpc":"2.0",
        "id"     :1,
-       "method" :"'$METHOD'" '$PARAMS'
+       "method" :"'$METHOD'"'"$PARAMS"'
      }' \
      -H 'content-type:application/json;' 2>/dev/null \
      127.0.0.1:9650/ext/$ENDPOINT \
 | $FORMAT
+
