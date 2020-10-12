@@ -23,28 +23,19 @@ These have been extracted and processed from the
 [Avalanche Postman Collection](https://github.com/ava-labs/avalanche-postman-collection)
 with the `gensigs.pl` script.
 
-### (A bit of) Complexity
+### Advanced Usage
 
-Ok, this is a _Basic_ Avalanche CLI, but fancier features
-have been implemented.
 
-#### Embedding Ojects
+#### Objects and Arrays
 
-An object is surrounded by % signs (thus replacing the {…} in JSON). You can
-embed several layers:
-
-    key1:%key2a:value2a key2b:%key3a:value3a key3b:value3b%%
-
-would translate to:
-
-    "key1":{"key2a":"value2a","key2b":{"key3a":"value3a","key3b":"value3b"}}
+First attempt was a fail. Working on a much simpler solution.
 
 #### Password Management
 
 If you don't like entering your password on the command line (and in
 `.bash_history`), use the BACPWD macro. The script looks up the username you
-provided in the `~/.bacpwd` file, fetches the password part, e.g. `S!kr33t`,
-and replaces the macro by `"password":"S!kr33t"`. This file must belong to your
+provided in the `~/.bacpwd` file, fetches the password part, e.g. `S|kr33t`,
+and replaces the macro by `"password":"S|kr33t"`. This file must belong to your
 Unix account and be accessible read-only by you excluding anyone else, meaning
 400. Each line is an account, of the form `username password` separated by
 spaces. By the way, it also fixes the issue of having special characters in the
@@ -68,10 +59,11 @@ There are no prerequisites if you only need raw outputs. The `-f` (format) optio
 All services are (supposed to be) supported, except
 
 - the C-chain (not fully tested, some methods do work)
-- methods with arrays in arguments
-- potential bugs, maybe in object and password handling
+- objects and arrays are not implemented yet, coming Real Soon Now™
+- there's always one more bug (Lubarsky's Law of Cybernetic Entomology)
 
-… for now. Currently trying to overcome these issues.
+… for now. Currently trying to overcome these issues. A real parser would be
+fine… in another language.
 
 Avalanche Postman Collection is a secondary source for signatures but there's
 nowhere in the avalanchego repo where you can find prototypes for these

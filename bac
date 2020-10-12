@@ -25,7 +25,6 @@ then
   echo '-f formats the output using jq.'
   echo '-n does nothing but display the Curl command.'
   echo 'Arguments are key:value pairs (quotes unnecessary).'
-  echo 'An object is surrounded by the % sign (instead of {...}).'
   echo 'BACPWD instead of password:... looks up the password in ~/.bacpwd'
   echo 'Endpoint is inferred from the service part of the method.'
   echo
@@ -48,8 +47,8 @@ then
     FORMAT="jq . -"
   else
     echo 'Please install the jq package (apt install jq)' 1>&2
-    shift
   fi
+  shift
 fi
 
 # Do nothing?
@@ -96,9 +95,8 @@ then
                 -e 's/^/,"params":{"/' \
                 -e 's/$/"}/' \
                 -e 's/ /","/g' \
-                -e 's/:"%/:{"/g' \
-                -e 's/%"/"}/g' \
-                -e 's/%"/"}/g'`
+                -e 's/ /","/g' \
+         `
 fi
 
 # Password handling
