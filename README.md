@@ -8,7 +8,7 @@
 <br>
 `-h` gives help.
 <br>
-Arguments are key:value pairs (quotes unnecessary).
+Arguments are key:value pairs (quotes unnecessary), pairs being separated by spaces.
 <br>
 Endpoint is inferred from the service part of the method.
 
@@ -16,7 +16,7 @@ Endpoint is inferred from the service part of the method.
 
     bac -f avm.getBalance address:X-avax1tmnpf87ph0pap4p507zfr0zesafnj5qh0sdkjc assetID:AVAX
 
-Providing an incomplete method name (i.e. without . or &lowbar;) has it grepped 
+Providing an incomplete method name (i.e. without . or &lowbar;) has it grepped
 in `[/usr/local/etc/]bac.sigs` and matching method signatures are displayed.
 <br>
 These have been extracted and processed from the 
@@ -25,10 +25,21 @@ with the `gensigs.pl` script.
 
 ### Advanced Usage
 
+Ok, this is the _Basic_ Avalanche CLI, but you can do whatever you
+want&mdash;theoretically. By the way, it's a pity
+[avalanche-cli](https://github.com/ava-labs/avalanche-cli), which you could
+have preferred for complex stuff, seems archived now and won't be updated in
+the future.
 
 #### Objects and Arrays
 
-First attempt was a fail. Working on a much simpler solution.
+You write objects pretty much as you would in JSON, only simpler:
+
+key1:{key2a:value2a key2b:{key3a:value3a key3b:value3b}}
+
+Same for arrays:
+
+key1:[value1a value1b]
 
 #### Password Management
 
@@ -47,23 +58,29 @@ Example:
 
 ## Installation
 
-The script works in any directory by calling `./bac …` , but you can install it system-wide:
+The script works in any directory by calling `./bac …` , but you can install it
+system-wide:
 
     sudo install -m 755 bac /usr/local/bin
     sudo install -m 644 bac.sigs /usr/local/etc
 
-There are no prerequisites if you only need raw outputs. The `-f` (format) option wants `jq`, which you can install using `apt install jq`.
+There are no prerequisites if you only need raw outputs. The `-f` (format)
+option wants `jq`, which you can install using `apt install jq`.
 
 ## Limitations
 
 All services are (supposed to be) supported, except
 
 - the C-chain (not fully tested, some methods do work)
-- objects and arrays are not implemented yet, coming Real Soon Now™
 - there's always one more bug (Lubarsky's Law of Cybernetic Entomology)
 
-… for now. Currently trying to overcome these issues. A real parser would be
-fine… in another language.
+… for now. 
+
+You shouldn't try to understand the final sed regexps, unless you're into
+[Malbolge](https://en.wikipedia.org/wiki/Malbolge).
+<br> 
+_Some people, when confronted with a problem, think "I know, I'll use regular
+expressions." Now they have two problems._ (J. Zawinski)
 
 Avalanche Postman Collection is a secondary source for signatures but there's
 nowhere in the avalanchego repo where you can find prototypes for these
