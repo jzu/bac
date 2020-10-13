@@ -48,9 +48,9 @@ If you don't like entering your password on the command line (and in
 provided in the `~/.bacpwd` file, fetches the password part, e.g. `S|kr33t`,
 and replaces the macro by `"password":"S|kr33t"`. This file must belong to your
 Unix account and be accessible read-only by you excluding anyone else, meaning
-400. Each line is an account, of the form `username password` separated by
-spaces. By the way, it also fixes the issue of having special characters in the
-password.
+`-r--------` (`chmod 400 ~/.bacpwd`). Each line is an account, of the form
+`username password` separated by spaces. By the way, it also fixes the issue of
+having special characters in the password.
 
 Example:
 
