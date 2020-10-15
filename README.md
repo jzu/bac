@@ -17,29 +17,26 @@ Endpoint is inferred from the service part of the method.
     bac -f avm.getBalance address:X-avax1tmnpf87ph0pap4p507zfr0zesafnj5qh0sdkjc assetID:AVAX
 
 Providing an incomplete method name (i.e. without . or &lowbar;) has it grepped
-in `[/usr/local/etc/]bac.sigs` and matching method signatures are displayed.
-<br>
-These have been extracted and processed from the 
-[Avalanche Postman Collection](https://github.com/ava-labs/avalanche-postman-collection)
-with the `gensigs.pl` script.
+in `[/usr/local/etc/]bac.sigs` and matching method signatures are displayed. The
+file is generated through `gensigs.pl`, which needs Perl and w3m, by scraping the
+[documentation pages](https://docs.avax.network/v1.0/en/api/intro-apis/). No EVM yet.
 
 ### Advanced Usage
 
 Ok, this is the _Basic_ Avalanche CLI, but you can do whatever you
-want&mdash;theoretically. By the way, it's a pity
-[avalanche-cli](https://github.com/ava-labs/avalanche-cli), which you could
-have preferred for complex stuff, seems archived now and won't be updated in
-the future.
+want&mdash;theoretically. You can also use
+[avalanche-cli](https://github.com/ava-labs/avalanche-cli), although it is
+archived now. You may find it better suited for complex requests.
 
 #### Objects and Arrays
 
 You write objects pretty much as you would in JSON, only simpler:
 
-key1:{key2a:value2a key2b:{key3a:value3a key3b:value3b}}
+    key1:{key2a:value2a key2b:{key3a:value3a key3b:value3b}}
 
 Same for arrays:
 
-key1:[value1a value1b]
+    key1:[value1a value1b]
 
 #### Password Management
 
@@ -76,13 +73,9 @@ All services are (supposed to be) supported, except
 
 … for now. 
 
-You shouldn't try to understand the final sed regexps, unless you're into
+You shouldn't try to understand the `PARAMS` sed regexps, unless you're into
 [Malbolge](https://en.wikipedia.org/wiki/Malbolge).
 <br> 
 _Some people, when confronted with a problem, think "I know, I'll use regular
 expressions." Now they have two problems._ (J. Zawinski)
 
-Avalanche Postman Collection is a secondary source for signatures but there's
-nowhere in the avalanchego repo where you can find prototypes for these
-methods, so signatures may differ from the documentation - that's life. Oh and
-it needs Perl. Sorry. Anyway the generated file is included here.
