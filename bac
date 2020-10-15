@@ -90,7 +90,7 @@ shift
 
 # Params
 
-if echo $* | grep -q : 
+if echo $* | grep -q :                     # Standard API
 then
   PARAMS=`echo $* \
           | sed -e 's/:/":"/g' \
@@ -107,6 +107,15 @@ then
                 -e 's/},*{/"},{"/g' \
                 -e 's/""*/"/g'
          `
+else                                       # C-chain: array, not object
+  if echo $METHOD | grep -q '_'
+  then
+    PARAMS=`echo $* \
+            | sed -e 's/^/,"params":["/' \
+                  -e 's/ /","/g' \
+                  -e 's/$/"]/' \
+           `
+  fi
 fi
 
 # Password handling
@@ -145,14 +154,16 @@ then
   fi
 fi
 
-# Faster, Pussycat! Kill! Kill!
+PARAMS=`echo $PARAMS | \
+        sed -e 's/"params":/\n       "params" : /'`  # Coquetry
 
+# Faster, Pussycat! Kill! Kill!
 
 ${ECHO}curl -X POST \
      --data '{
-       "jsonrpc":"2.0",
-       "id"     :1,
-       "method" :"'$METHOD'"'"$PARAMS"'
+       "jsonrpc": "2.0",
+       "id"     : 1,
+       "method" : "'$METHOD'"'"$PARAMS"'
      }' \
      -H 'content-type:application/json;' 2>/dev/null \
      127.0.0.1:9650/ext/$ENDPOINT \
