@@ -1,73 +1,73 @@
-admin.alias
-admin.aliasChain
+admin.aliasChain : chain alias
+admin.alias : endpoint alias
 admin.lockProfile
 admin.startCPUProfiler
 admin.stopCPUProfiler
-auth.changePassword
-auth.newToken
-auth.revokeToken
-avm.buildGenesis
-avm.createAddress
-avm.createFixedCapAsset
-avm.createNFTAsset
-avm.createVariableCapAsset
-avm.exportAVAX
-avm.exportKey
-avm.getAllBalances
-avm.getAssetDescription
-avm.getBalance
-avm.getTx
-avm.getTxStatus
-avm.getUTXOs
-avm.importAVAX
-avm.importKey
-avm.issueTx
-avm.listAddresses
-avm.mint
-avm.mintNFT
-avm.send
-avm.sendMultiple
-avm.sendNFT
+auth.changePassword : oldPassword newPassword
+auth.newToken : password endpoints[]
+auth.revokeToken : password token
+avm.buildGenesis : genesisData encoding(opt)
+avm.createAddress : username password
+avm.createFixedCapAsset : name symbol denomination initialHolders[]{ address amount } from[](opt) changeAddr optional username password
+avm.createNFTAsset : name symbol minterSets []{ minters[] threshold } from[](opt) changeAddr optional username password
+avm.createVariableCapAsset : name symbol denomination minterSets []{ minters[] threshold } from[](opt) changeAddr optional username password
+avm.exportAVAX : to amount from[](opt) changeAddr optional username password
+avm.exportKey : username password address
+avm.getAllBalances : address
+avm.getAssetDescription : assetID
+avm.getBalance : address assetID
+avm.getTxStatus : txID
+avm.getTx : txID encoding(opt)
+avm.getUTXOs : addresses limit(opt) startIndex(opt){ address utxo } sourceChain optional encoding optional
+avm.importAVAX : to sourceChain username password
+avm.importKey : username password privateKey
+avm.issueTx : tx encoding(opt)
+avm.listAddresses : username password
+avm.mint : amount assetID to from[](opt) changeAddr optional username password
+avm.mintNFT : assetID payload to encoding(opt) from[] optional changeAddr optional username password
+avm.send : amount assetID to from[](opt) changeAddr optional memo optional username password
+avm.sendMultiple : outputs[]{ assetID amount to } from[](opt) changeAddr optional memo optional username password
+avm.sendNFT : assetID groupID to from[](opt) changeAddr optional username password
 health.getLiveness
-info.getBlockchainID
+info.getBlockchainID : alias
 info.getNetworkID
 info.getNetworkName
 info.getNodeID
 info.getNodeVersion
 info.getTxFee
-info.isBootstrapped
+info.isBootstrapped : chain
 info.peers
-ipcs.publishBlockchain
-ipcs.unpublishBlockchain
+ipcs.publishBlockchain : blockchainID
+ipcs.unpublishBlockchain : blockchainID
+keystore.createUser : username password
 keystore.ListUsers
-keystore.createUser
-platform.addDelegator
-platform.addSubnetValidator
-platform.addValidator
-platform.createAddress
-platform.createBlockchain
-platform.createSubnet
-platform.exportAVAX
-platform.exportKey
-platform.getBalance
-platform.getBlockchainStatus
+platform.addDelegator : nodeID startTime endTime stakeAmount rewardAddress from[](opt) changeAddr optional username password
+platform.addSubnetValidator : nodeID subnetID startTime endTime weight from[](opt) changeAddr optional username password
+platform.addValidator : nodeID startTime endTime stakeAmount rewardAddress from[](opt) changeAddr optional delegationFeeRate username password
+platform.createAddress : username password
+platform.createBlockchain : subnetID vmID name genesisData encoding(opt) from[] optional changeAddr optional username password
+platform.createSubnet : controlKeys[] threshold from[](opt) changeAddr optional username password
+platform.exportAVAX : amount from[](opt) to changeAddr optional username password
+platform.exportKey : username password address
+platform.getBalance : address
 platform.getBlockchains
+platform.getBlockchainStatus : blockchainID
 platform.getCurrentSupply
-platform.getCurrentValidators
+platform.getCurrentValidators : subnetID
 platform.getHeight
 platform.getMinStake
-platform.getPendingValidators
-platform.getStake
+platform.getPendingValidators : subnetID
+platform.getStake : addresses[]
 platform.getStakingAssetID
-platform.getSubnets
+platform.getSubnets : ids[]
 platform.getTotalStake
-platform.getTx
-platform.getTxStatus
-platform.getUTXOs
-platform.importAVAX
-platform.importKey
-platform.issueTx
-platform.listAddresses
-platform.sampleValidators
-platform.validatedBy
-platform.validates
+platform.getTxStatus : txID
+platform.getTx : txID encoding(opt)
+platform.getUTXOs : addresses limit(opt) startIndex(opt){ address utxo } sourceChain optional encoding optional
+platform.importAVAX : from[](opt) to changeAddr optional sourceChain username password
+platform.importKey : username password privateKey
+platform.issueTx : tx encoding(opt)
+platform.listAddresses : username password
+platform.sampleValidators : size subnetID
+platform.validatedBy : blockchainID
+platform.validates : subnetID
