@@ -110,11 +110,12 @@ then
 else                                       # C-chain: array, not object
   if echo $METHOD | grep -q '_'
   then
-    PARAMS=`echo $* \
-            | sed -e 's/^/,"params":["/' \
-                  -e 's/ /","/g' \
-                  -e 's/$/"]/' \
-           `
+    [ ! -z "$*" ] && \
+      PARAMS=`echo $* \
+              | sed -e 's/^/,"params":["/' \
+                    -e 's/ /","/g' \
+                    -e 's/$/"]/' \
+             `
   fi
 fi
 
