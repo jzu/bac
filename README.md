@@ -1,6 +1,6 @@
 # bac - Basic Avalanche CLI
 
-`bac` acts as a Unix CLI wrapper around the [Avalanche JSON API](https://docs.avax.network/v1.0/en/api/intro-apis/), making it easier to call simple methods.
+`bac` acts as a Unix command-line interface wrapper around the [Avalanche JSON API](https://docs.avax.network/v1.0/en/api/intro-apis/), making it easier to call simple methods.
 
 `-f` formats the output using [jq](https://stedolan.github.io/jq/).
 <br>
@@ -16,10 +16,10 @@ Endpoint is inferred from the service part of the method.
 
     bac -f avm.getBalance address:X-avax1tmnpf87ph0pap4p507zfr0zesafnj5qh0sdkjc assetID:AVAX
 
-Providing an incomplete method name (i.e. without . or &lowbar;) has it grepped
+Providing an incomplete method name (i.e. without `.` or `_`) has it grepped
 in `[/usr/local/etc/]bac.sigs` and matching method signatures are displayed. The
 file is generated through `gensigs.pl`, which needs Perl and w3m, by scraping the
-[documentation pages](https://docs.avax.network/v1.0/en/api/intro-apis/). No EVM yet.
+[documentation pages](https://docs.avax.network/build/apis). 
 
 ### Advanced Usage
 
@@ -47,7 +47,7 @@ and replaces the macro by `"password":"S|kr33t"`. This file must belong to your
 Unix account and be accessible read-only by you excluding anyone else, meaning
 `-r--------` (`chmod 400 ~/.bacpwd`). Each line is an account, of the form
 `username password` separated by spaces. By the way, it also fixes the issue of
-having special characters in the password.
+having special characters in the password, such as `!`.
 
 Example:
 
@@ -69,6 +69,7 @@ option wants `jq`, which you can install using `apt install jq`.
 All services are (supposed to be) supported, except
 
 - the C-chain (not fully tested, some methods do work)
+- doc layout being subjected to changes, `gensigs.pl` should soon prove obsolete. The EVM API seems incomplete. 
 - there's always one more bug (Lubarsky's Law of Cybernetic Entomology)
 
 … for now. 
