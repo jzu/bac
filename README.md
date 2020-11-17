@@ -1,6 +1,8 @@
 # bac - Basic Avalanche CLI
 
-`bac` acts as a Unix command-line interface wrapper around the [Avalanche JSON API](https://docs.avax.network/v1.0/en/api/intro-apis/), making it easier to call simple methods.
+`bac` acts as a Unix command-line interface wrapper around the 
+[Avalanche JSON API](https://docs.avax.network/v1.0/en/api/intro-apis/), 
+making it easier to call simple methods.
 
 `-f` formats the output using [jq](https://stedolan.github.io/jq/).
 <br>
@@ -25,8 +27,8 @@ file is generated through `gensigs.pl`, which needs Perl and w3m, by scraping th
 
 Ok, this is the _Basic_ Avalanche CLI, but you can do whatever you
 want&mdash;theoretically. You can also use
-[avalanche-cli](https://github.com/ava-labs/avalanche-cli), although it is
-archived now. You may find it better suited for complex requests.
+[avalanche-cli](https://github.com/hsk81/avalanche-cli).
+You may find it better suited for complex requests.
 
 #### Objects and Arrays
 
@@ -55,8 +57,8 @@ Example:
 
 ## Installation
 
-The script works in any directory by calling `./bac …` , but you can install it
-system-wide:
+The script works in any directory by calling `./bac …` provided it has execution rights
+(`chmod 755 bac` it it's not the case), but you can install it system-wide:
 
     sudo install -m 755 bac /usr/local/bin
     sudo install -m 644 bac.sigs /usr/local/etc
