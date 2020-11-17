@@ -69,11 +69,14 @@ option wants `jq`, which you can install using `apt install jq`.
 All services are (supposed to be) supported, except
 
 - the C-chain (not fully tested, some methods do work)
-- doc layout being subjected to changes, `gensigs.pl` should soon prove obsolete. The EVM API seems incomplete. 
 - there's always one more bug (Lubarsky's Law of Cybernetic Entomology)
 
 … for now. 
 
+The documentation layout being subjected to changes, `gensigs.pl` should soon prove obsolete. 
+<br>
+The EVM API seems incomplete. 
+<br>
 You shouldn't try to understand the `PARAMS` sed regexps, unless you're into
 [Malbolge](https://en.wikipedia.org/wiki/Malbolge).
 <br> 
