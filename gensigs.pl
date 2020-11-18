@@ -19,7 +19,7 @@ my $scrape = 0;
 my $line = "";
 
 
-sub apis () { qw (admin auth avm health info ipc keystore platform) };
+sub apis () { qw (admin auth exchange-chain-x-chain health info ipc keystore platform-chain-p-chain) };
 
 
 -e "/usr/bin/w3m" or
@@ -31,7 +31,7 @@ copy ("$sigs", "/tmp/$sigs.$$");
 
 foreach my $api (apis()) {
   print "$api\n";
-  `w3m -dump "https://docs.avax.network/v1.0/en/api/$api"/ >> $docs`
+  `w3m -dump "https://docs.avax.network/build/avalanchego-apis/$api-api"/ >> $docs`
 }
 
 open (I, "<$docs") or die;
@@ -40,6 +40,7 @@ open (O, ">$sigs") or die;
 while (<I>) {
 
   if (m/^Signature/) {
+#$line =~ /_/ and print "$line\n";
     $line = "";
     $scrape = 1;
   }
@@ -54,7 +55,6 @@ while (<I>) {
     $line =~ s/: *int//g;
     $line =~ s/: *float//g;
     $line =~ s/: *number//g;
-#$line =~ /admin.alias/ and print "$line\n";
     $line =~ s/: *JSON//g;
     $line =~ s/[\(\)]/ /g;
     $line =~ s/ *\boptional\b/\(opt\)/;
@@ -69,6 +69,7 @@ while (<I>) {
     $line =~ s/} *$//;
     $line =~ s/  */ /g;
     $line =~ s/  *$//g;
+    $line =~ s/^  *//g;
     $line =~ s/ / : /;
     print O "$line\n";
     $scrape = 0;
