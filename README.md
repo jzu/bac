@@ -26,7 +26,7 @@ file is generated through `gensigs.pl`, which needs Perl and w3m, by scraping th
 ### Advanced Usage
 
 Ok, this is the _Basic_ Avalanche CLI, but you can do whatever you
-want&mdash;theoretically. You can also use
+want, as long it doesn't involve the `avax` API. You can also use
 [avalanche-cli](https://github.com/hsk81/avalanche-cli).
 You may find it better suited for complex requests.
 
@@ -78,6 +78,9 @@ All services are (supposed to be) supported, except
 The documentation layout being subjected to changes, `gensigs.pl` should soon prove obsolete. 
 <br>
 The EVM API seems incomplete. 
+<br>
+The `avax` RPC endpoints are unmanageable in an automatic way: see 
+[https://docs.avax.network/build/avalanchego-apis/contract-chain-c-chain-api](https://docs.avax.network/build/avalanchego-apis/contract-chain-c-chain-api).
 <br>
 You shouldn't try to understand the `PARAMS` sed regexps, unless you're into
 [Malbolge](https://en.wikipedia.org/wiki/Malbolge).
