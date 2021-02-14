@@ -1,7 +1,7 @@
 # bac - Basic Avalanche CLI
 
 `bac` acts as a Unix command-line interface wrapper around the 
-[Avalanche JSON API](https://docs.avax.network/v1.0/en/api/intro-apis/), 
+[Avalanche JSON API](https://docs.avax.network/build/avalanchego-apis), 
 making it easier to call simple methods.
 
 `-f` formats the output using [jq](https://stedolan.github.io/jq/).
