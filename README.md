@@ -27,7 +27,7 @@ file is generated through `gensigs.pl`, which needs Perl and w3m, by scraping th
 
 Ok, this is the _Basic_ Avalanche CLI, but you can do whatever you
 want, as long it doesn't involve the `avax` API. You can also use
-[avalanche-cli](https://github.com/hsk81/avalanche-cli).
+[avalanche-cli](https://www.npmjs.com/package/avalanche-cli).
 You may find it better suited for complex requests.
 
 #### Objects and Arrays
