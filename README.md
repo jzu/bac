@@ -55,10 +55,16 @@ Example:
 
     bac -f some.method username:foo BACPWD
 
+## Remote Access
+
+In conjunction with [`ara`](https://github.com/jzu/ara), an SSL reverse proxy
+on the Avalanche node, `bac` can transparently and safely access its API from a
+remote location using server and client X.509v3 certificates. 
+
 ## Installation
 
 The script works in any directory by calling `./bac …` provided it has execution rights
-(`chmod 755 bac` it it's not the case), but you can install it system-wide:
+(`chmod 755 bac` if it's not the case), but you can install it system-wide:
 
     sudo install -m 755 bac /usr/local/bin
     sudo install -m 644 bac.sigs /usr/local/etc
