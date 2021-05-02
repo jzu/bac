@@ -1,13 +1,15 @@
 #!/bin/bash
 
 # bac - Basic Avalanche CLI
-# Copyright (C) 2020 Jean Zundel <jzu@free.fr>
+# (C) 2020 Jean Zundel <jzu@free.fr> - MIT License
 # See https://github.com/jzu/bac
 #
 # Bash wrapper around the Avalanche JSON API
 
 export LANG=C
 export LC_ALL=C
+
+URI="127.0.0.1:9650"
 
 if [ $# -eq 0 ] 
 then
@@ -88,6 +90,26 @@ ENDPOINT=`echo $METHOD \
                 -e 's:timestamp:bc/timestamp:'`
 shift
 
+# URI and P12 for remote access (https://github.com/jzu/ara)
+# bacara.conf is located in the $HOME/.config of the user who sudo'd
+
+P_ID=$$
+PP_ID=`grep PPid: /proc/$P_ID/status \
+      | sed 's/.*\t//'`
+GP_ID=`grep PPid: /proc/$PP_ID/status \
+      | sed 's/.*\t//'`
+CFG=/home/`ps -o user -p $GP_ID \
+           | tail -1`/.config/bacara.conf
+if [ -f "$CFG" ]
+then
+  URI=`cat $CFG \
+       | grep URI \
+       | sed 's/.*=//'`
+  P12=`cat $CFG \
+       | grep P12 \
+       | sed 's/.*=//'`
+fi
+
 # Params
 
 if echo $* | grep -q :                     # Standard API
@@ -115,7 +137,7 @@ else                                       # C-chain: array, not object
               | sed -e 's/^/,"params":["/' \
                     -e 's/ /","/g' \
                     -e 's/$/"]/' \
-             `
+           `
   fi
 fi
 
@@ -160,13 +182,9 @@ PARAMS=`echo $PARAMS | \
 
 # Faster, Pussycat! Kill! Kill!
 
-${ECHO}curl -X POST \
-     --data '{
-       "jsonrpc": "2.0",
-       "id"     : 1,
-       "method" : "'$METHOD'"'"$PARAMS"'
-     }' \
-     -H 'content-type:application/json;' 2>/dev/null \
-     127.0.0.1:9650/ext/$ENDPOINT \
+${ECHO}curl --data \
+            '{"jsonrpc": "2.0", "id": 1, "method": "'$METHOD'"'"$PARAMS"'}' \
+            -H 'content-type:application/json;' 2>/dev/null \
+            $P12 $URI/ext/$ENDPOINT \
 | $FORMAT
 
