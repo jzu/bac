@@ -82,10 +82,12 @@ fi
 # Endpoint
 
 METHOD=$1
+echo COUCOU $METHOD
 ENDPOINT=`echo $METHOD \
           | sed -e 's/\..*//' \
                 -e 's:avm:bc/X:' \
                 -e 's:platform:bc/P:' \
+                -e 's:avax:bc/C/avax:' \
                 -e 's:[^/]*_.*:bc/C/rpc:' \
                 -e 's:timestamp:bc/timestamp:'`
 shift
@@ -141,7 +143,7 @@ else                                       # C-chain: array, not object
   fi
 fi
 
-# Password handling
+# Password handling (obsolete)
 
 if echo $* | grep -q BACPWD 
 then

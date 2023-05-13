@@ -23,12 +23,17 @@ Providing an incomplete method name (i.e. without `.` or `_`) has it grepped in
 file has been generated  by scraping the 
 [documentation pages](https://docs.avax.network/apis/avalanchego/apis), some 
 basic text processing, and manual editing. Methods suffixed with `!` are 
-deprecated. Arguments suffixed with `°` are optional.
+deprecated. Arguments suffixed with `°` are optional. Example:
+
+    $ bac blockchain
+    platform.createBlockchain! : subnetID, vmID, name, genesisData, encoding°, from[]°, changeAddr°, username, password
+    platform.getBlockchains!
+    platform.getBlockchainStatus : blockchainID
 
 ### Advanced Usage
 
 Ok, this is the _Basic_ Avalanche CLI, but you can do whatever you
-want, as long it doesn't involve the `avax` API. You can also use
+want, even with the `avax` API now (beta). You can also use
 [avalanche-cli](https://www.npmjs.com/package/avalanche-cli).
 You may find it better suited for complex requests.
 

@@ -13,13 +13,13 @@ auth.changePassword : oldPassword, newPassword
 auth.newToken : password, endpoints
 auth.revokeToken : password, token
 avax.export : to, amount, assetID, baseFee, username, password
-avax.exportAVAX : to, amount, baseFee, username, password
+avax.exportAVAX! : to, amount, baseFee, username, password
 avax.exportKey : username, password, address
 avax.getAtomicTx : txID, encoding° 
 avax.getAtomicTxStatus : txID
 avax.getUTXOs : addresses, limit°, startIndex°{address, utxo}, sourceChain, encoding°
 avax.import : to, sourceChain, baseFee°, username, password
-avax.importAVAX : to, sourceChain, baseFee°, username, password
+avax.importAVAX! : to, sourceChain, baseFee°, username, password
 avax.importKey : username, password, privateKey
 avax.issueTx : tx, encoding° 
 avm.buildGenesis : networkID, genesisData, encoding° 
@@ -48,6 +48,7 @@ avm.mintNFT! : assetID, payload, to, encoding°, from[]°, changeAddr°, usernam
 avm.send! : amount, assetID, to, memo°, from[]°, changeAddr°, username, password
 avm.sendMultiple! : outputs[]{assetID, amount, to}, from[]°, changeAddr°, memo°, username, password
 avm.sendNFT! : assetID, groupID, to, from[]°, changeAddr°, username, password
+eth_baseFee
 eth_feeConfig : [blk]
 eth_getActivePrecompilesAt : [timestamp]
 eth_getAssetBalance : address, blk, assetID
