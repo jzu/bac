@@ -82,7 +82,6 @@ fi
 # Endpoint
 
 METHOD=$1
-echo COUCOU $METHOD
 ENDPOINT=`echo $METHOD \
           | sed -e 's/\..*//' \
                 -e 's:avm:bc/X:' \
