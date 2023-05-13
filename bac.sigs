@@ -1,95 +1,105 @@
-admin.alias : alias, endpoint 
-admin.aliasChain : chain, alias 
-admin.lockProfile 
-admin.memoryProfile 
-admin.startCPUProfiler 
-admin.stopCPUProfiler 
-auth.newToken : password, endpoints[] 
-auth.revokeToken : password goes here, token goes here 
-auth.changePassword : oldPassword password goes here, newPassword 
-avm.buildGenesis : genesisData asset1 name, symbol, initialState fixedCap [{amount, address}, {amount, address}, {amount, address}, {amount, address}] , asset2 name, symbol, initialState variableCap [{minters[], threshold}, {minters[], threshold}]  
-avm.createAddress : username, password
-avm.createFixedCapAsset : name Token, symbol, initialHolders[{address, amount}], from[], changeAddr, username, password
-avm.createNFTAsset : name, symbol, minterSets[{minters[], threshold}, {minters[], threshold}], from[], changeAddr, username, password
-avm.createVariableCapAsset : name, symbol, minterSets[{minters[], threshold}], from[], changeAddr, username, password
-avm.exportAVAX : from[], to, amount, destinationChain, changeAddr, username, password
-avm.exportKey : username, password, address
-avm.getAllBalances : address
-avm.getAssetDescription : assetID 
-avm.getBalance : address, assetID 
-avm.getTx : txID 
-avm.getTxStatus : txID 
-avm.getUTXOs : addresses[], limit 
-avm.importAVAX : username, password, sourceChain, to
-avm.importKey : username, password, privateKey
-avm.issueTx : tx 
-avm.listAddresses : username, password
-avm.mint : amount, assetID, from[], to, minters[], changeAddr, username, password
-avm.mintNFT : assetID, payload, from[], to, minters[], changeAddr, username, password
-avm.send : assetID , amount , from [], to , changeAddr, memo , username, password
-avm.sendMultiple : outputs[{assetID , to , amount}], from [], changeAddr, memo , username, password
-avm.sendNFT : assetID , from [], to , groupID , changeAddr, username, password
-eth_blockNumber : []
-eth_call : [{to, data}, latest]
-eth_chainId : []
-eth_getBalance : []
-eth_signTransaction : [{from, to, gas, gasPrice, nonce, value}]
-eth_getTransactionCount : []
-eth_sendRawTransaction : []
-eth_getBlockByHash : []
-eth_getBlockByNumber : []
-eth_getTransactionByHash : []
-eth_getTransactionReceipt : []
-net_version : []
-personal_newAccount : []
-personal_importRawKey : []
-personal_listAccounts : []
-personal_unlockAccount : []
-txpool_status : []
-web3_clientVersion : []
-web3_sha3 : []
-health.getLiveness
-info.getBlockchainID : alias 
-info.getNetworkID 
-info.getNetworkName 
-info.getNodeID 
-info.getNodeIP 
-info.getNodeVersion 
-info.isBootstrapped : chain 
-info.getTxFee 
-info.peers 
-ipcs.publishBlockchain : blockchainID
-ipcs.unpublishBlockchain : blockchainID
-keystore.createUser : username, password
-keystore.deleteUser : username, password
-keystore.exportUser : username, password
-keystore.importUser : username, password, user 
-keystore.listUsers
-platform.addDelegator : nodeId, startTime, endTime, stakeAmount, rewardAddress, username, password
-platform.addValidator : nodeID, startTime, endTime, stakeAmount, rewardAddress, delegationFeeRate, username, password
-platform.addSubnetValidator : nodeID, subnetID, startTime, endTime, weight, username, password
-platform.createAddress : username, password
-platform.createBlockchain : vmID, SubnetID, name, genesisData, username, password
-platform.createSubnet : controlKeys[], threshold, username, password
-platform.getBalance : address
-platform.getBlockchains 
+admin.alias : endpoint, alias
+admin.aliasChain : chain, alias
+admin.getChainAliases : chain
+admin.getLoggerLevel : loggerName°
+admin.loadVMs : newVMs, failedVMs
+admin.lockProfile
+admin.memoryProfile
+admin.setLogLevel : level
+admin.setLoggerLevel : loggerName°, logLevel°, displayLevel° 
+admin.startCPUProfiler
+admin.stopCPUProfiler
+auth.changePassword : oldPassword, newPassword
+auth.newToken : password, endpoints
+auth.revokeToken : password, token
+avax.export : to, amount, assetID, baseFee, username, password
+avax.exportAVAX : to, amount, baseFee, username, password
+avax.exportKey : username, password, address
+avax.getAtomicTx : txID, encoding° 
+avax.getAtomicTxStatus : txID
+avax.getUTXOs : addresses, limit°, startIndex°{address, utxo}, sourceChain, encoding°
+avax.import : to, sourceChain, baseFee°, username, password
+avax.importAVAX : to, sourceChain, baseFee°, username, password
+avax.importKey : username, password, privateKey
+avax.issueTx : tx, encoding° 
+avm.buildGenesis : networkID, genesisData, encoding° 
+avm.createAddress! : username, password
+avm.createFixedCapAsset! : name, symbol, denomination°, initialHolders[]{address, amount}, from[]°, changeAddr°, username, password
+avm.createNFTAsset! : name, symbol, minterSets[]{minters[], threshold}, from[]°, changeAddr°, username, password
+avm.createVariableCapAsset! : name, symbol, denomination°, minterSets[]{minters[], threshold}, from[]°, changeAddr°, username, password
+avm.export! : to, amount, assetID, from[]°, changeAddr°, username, password
+avm.exportKey! : username, password, address
+avm.getAddressTxs! : address, cursor°, setID, pageSize°
+avm.getAllBalances! : asset, balance
+avm.getAssetDescription : assetID
+avm.getBalance! : address, assetID
+avm.getBlock : blockIDencoding°
+avm.getBlockByHeight : heightencoding°
+avm.getHeight 
+avm.getTx : txID, encoding° 
+avm.getTxStatus!
+avm.getUTXOs : addresses[], limit°, startIndex°{address, utxo}, sourceChain°, encoding°
+avm.import! : to, sourceChain, username, password
+avm.importKey! : username, password, privateKey
+avm.issueTx : tx, encoding° 
+avm.listAddresses! : username, password
+avm.mint! : amount, assetID, to, from[]°, changeAddr°, username, password
+avm.mintNFT! : assetID, payload, to, encoding°, from[]°, changeAddr°, username, password
+avm.send! : amount, assetID, to, memo°, from[]°, changeAddr°, username, password
+avm.sendMultiple! : outputs[]{assetID, amount, to}, from[]°, changeAddr°, memo°, username, password
+avm.sendNFT! : assetID, groupID, to, from[]°, changeAddr°, username, password
+eth_feeConfig : [blk]
+eth_getActivePrecompilesAt : [timestamp]
+eth_getAssetBalance : address, blk, assetID
+eth_getChainConfig 
+eth_maxPriorityFeePerGas
+health.health 
+index.getContainerByID : id, encoding
+index.getContainerByIndex : index, encoding
+index.getContainerRange : startIndex, numToFetch, encoding
+index.getIndex : id, encoding
+index.getLastAccepted : encoding
+index.isAccepted : id, encoding
+info.peers : nodeIDs[]°
+info.uptime : subnetID°
+keystore.createUser! : username, password
+keystore.deleteUser! : username, password
+keystore.exportUser! : username, password, encoding°
+keystore.importUser: : username, password, user, encoding°
+keystore.listUsers!
+platform.addDelegator! : nodeID, startTime, endTime, stakeAmount, rewardAddress, from[]°, changeAddr°, username, password
+platform.addSubnetValidator! : nodeID, subnetID, startTime, endTime, weight, from[]°, changeAddr°, username, password
+platform.addValidator! : nodeID, startTime, endTime, stakeAmount, rewardAddress, delegationFeeRate, from[]°, changeAddr°, username, password
+platform.createAddress! : username, password
+platform.createBlockchain! : subnetID, vmID, name, genesisData, encoding°, from[]°, changeAddr°, username, password
+platform.createSubnet! : controlKeys[], threshold, from[]°, changeAddr°, username, password
+platform.exportAVAX! : amount, from[]°, to, changeAddr°, username, password
+platform.exportKey! : username, password, address
+platform.getBalance! : addresses[]
+platform.getBlock : blockIDencoding°
+platform.getBlockchains!
 platform.getBlockchainStatus : blockchainID
-platform.getCurrentValidators : subnetID
-platform.getStakingAssetID 
-platform.getMinStake 
-platform.getStake : addresses[] 
+platform.getCurrentSupply : subnetID°
+platform.getCurrentValidators : subnetID°, nodeIDs[]° 
+platform.getMaxStakeAmount! : subnetID, nodeID, startTime, endTime
+platform.getMinStake : subnetID°
+platform.getPendingValidators : subnetID°, nodeIDs[]° 
+platform.getRewardUTXOs! : txID, encoding°
+platform.getStake! : addresses[], validatorsOnly
+platform.getStakingAssetID : subnetID°
+platform.getSubnets! : ids[]
+platform.getTotalStake : subnetID
+platform.getTx : txID, encoding°
 platform.getTxStatus : txID
-platform.getPendingValidators : subnetID
-platform.getSubnets 
-platform.getTx : txID 
-platform.getTxStatus : txID 
-platform.getUTXOs : addresses[], sourceChain, limit 
-platform.exportAVAX : to, amount, username, password
-platform.exportKey : username, password, address
-platform.importAVAX : username, password, sourceChain, to
-platform.importKey : username, password, privateKey
-platform.issueTx : tx
-platform.listAddresses : username, password
-platform.sampleValidators : size 
+platform.getUTXOs : addresses[], limit°, startIndex°{address, utxo}, sourceChain°, encoding°
+platform.getValidatorsAt : height, subnetID°, })
+platform.importAVAX! : to, sourceChain, from[]°, changeAddr°, username, password
+platform.importKey! : username, password, privateKey
+platform.issueTx : tx, encoding° 
+platform.listAddresses! : username, password
+platform.sampleValidators : size, subnetID° 
 platform.validatedBy : blockchainID
 platform.validates : subnetID
+wallet.issueTx : tx, encoding° 
+wallet.send : amount, assetID, to, memo°, from[]°, changeAddr°, username, password
+wallet.sendMultiple : outputs[]{assetID, amount, to}, from[]°, changeAddr°, memo°, username, password
