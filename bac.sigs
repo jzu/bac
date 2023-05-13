@@ -100,6 +100,6 @@ platform.listAddresses! : username, password
 platform.sampleValidators : size, subnetID° 
 platform.validatedBy : blockchainID
 platform.validates : subnetID
-wallet.issueTx : tx, encoding° 
-wallet.send : amount, assetID, to, memo°, from[]°, changeAddr°, username, password
-wallet.sendMultiple : outputs[]{assetID, amount, to}, from[]°, changeAddr°, memo°, username, password
+wallet.issueTx! : tx, encoding° 
+wallet.send! : amount, assetID, to, memo°, from[]°, changeAddr°, username, password
+wallet.sendMultiple! : outputs[]{assetID, amount, to}, from[]°, changeAddr°, memo°, username, password
