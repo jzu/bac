@@ -21,9 +21,9 @@ Endpoint is inferred from the service part of the method.
 Providing an incomplete method name (i.e. without `.` or `_`) has it grepped in
 `[/usr/local/etc/]bac.sigs` and matching method signatures are displayed. The
 file has been generated  by scraping the 
-[documentation pages](https://docs.avax.network/build/apis), some basic text
-processing, and manual editing. Methods suffixed with `!` are deprecated.
-arguments suffixed with `°` are optional.
+[documentation pages](https://docs.avax.network/apis/avalanchego/apis), some 
+basic text processing, and manual editing. Methods suffixed with `!` are 
+deprecated. Arguments suffixed with `°` are optional.
 
 ### Advanced Usage
 
@@ -58,6 +58,7 @@ option wants `jq`, which you can install using `apt install jq`.
 All services are (supposed to be) supported, except
 
 - the C-chain (not fully tested, some methods do work)
+- the -n option forgets the simple quotes
 - there's always one more bug (Lubarsky's Law of Cybernetic Entomology)
 
 … for now. 
