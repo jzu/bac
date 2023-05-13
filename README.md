@@ -58,17 +58,18 @@ option wants `jq`, which you can install using `apt install jq`.
 All services are (supposed to be) supported, except
 
 - the C-chain (not fully tested, some methods do work)
-- the -n option forgets the simple quotes
 - there's always one more bug (Lubarsky's Law of Cybernetic Entomology)
 
 … for now. 
 
 `gensigs.pl` never really worked and has been discarded.
 <br>
+The -n option forgets the simple quotes.
+<br>
 The EVM API seems incomplete. 
 <br>
 The `avax` RPC endpoints are unmanageable in an automatic way: see 
-[https://docs.avax.network/build/avalanchego-apis/contract-chain-c-chain-api](https://docs.avax.network/build/avalanchego-apis/contract-chain-c-chain-api).
+[https://docs.avax.network/apis/avalanchego/apis/c-chain](https://docs.avax.network/apis/avalanchego/apis/c-chain).
 <br>
 You shouldn't try to understand the `PARAMS` sed regexps, unless you're into
 [Malbolge](https://en.wikipedia.org/wiki/Malbolge).
